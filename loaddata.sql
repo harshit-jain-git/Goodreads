@@ -29,6 +29,12 @@ CREATE TABLE Books (
     PRIMARY KEY (book_id)
 );
 
+CREATE TABLE Users (
+    user_id int,
+    password text NOT NULL,
+    PRIMARY KEY (user_id)
+);
+
 CREATE TABLE Tags (
     tag_id int,
     tag_name text UNIQUE NOT NULL,
@@ -36,7 +42,7 @@ CREATE TABLE Tags (
 );
 
 CREATE TABLE Ratings (
-    user_id int,
+    user_id int REFERENCES Users(user_id),
     book_id int REFERENCES Books(book_id),
     rating smallint CHECK (rating >= 1 AND rating <= 5),
     PRIMARY KEY (user_id, book_id)
@@ -50,15 +56,16 @@ CREATE TABLE BookTags (
 );
 
 CREATE TABLE ToRead (
-    user_id int,
+    user_id int REFERENCES Users(user_id),
     book_id int,
     PRIMARY KEY (user_id, book_id)
 );
 
 \COPY Books FROM './goodbooks-10k/books.csv' DELIMITER ',' CSV HEADER;
+\COPY Users FROM './goodbooks-10k/users.csv' DELIMITER ',' CSV HEADER;
 \COPY Ratings FROM './goodbooks-10k/ratings.csv' DELIMITER ',' CSV HEADER;
 \COPY Tags FROM './goodbooks-10k/tags.csv' DELIMITER ',' CSV HEADER;
-\COPY BookTags FROM './goodbooks-10k/book_tags_.csv' DELIMITER ',' CSV HEADER;
+\COPY BookTags FROM './goodbooks-10k/book_tags.csv' DELIMITER ',' CSV HEADER;
 \COPY ToRead FROM './goodbooks-10k/to_read.csv' DELIMITER ',' CSV HEADER;
 
 
