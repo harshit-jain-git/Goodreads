@@ -1,5 +1,5 @@
 from flask import Flask, render_template,request, url_for, redirect
-from flask_socketio import SocketIO, send, emit
+from flask_socketio import SocketIO
 import socket
 import json
 import time
@@ -13,10 +13,11 @@ app = Flask(__name__,
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
+conn = psycopg2.connect("dbname=goodbooks user=postgres host=localhost port=5433 password=postgres")
+cur = conn.cursor()
+
 def validate(username, passkey):
 	query = "select count(user_id) from users where user_id = {} and password = '{}'".format(username, passkey)
-	conn = psycopg2.connect("dbname=goodbooks user=postgres host=localhost port=5433 password=postgres")
-	cur = conn.cursor()
 	cur.execute(query)
 	rows = cur.fetchall()
 	if (rows[0][0] == 1):
@@ -26,18 +27,13 @@ def validate(username, passkey):
 		print("INVALID CREDENTIALS!")
 		return (True, None)
 
+@app.route("/user_page")
+def user_page():
+	return render_template('user_page.html')
+
 @app.route("/")
 def main():
 	return render_template('main.html')
-
-@socketio.on('status')
-def handle_status(auth_status, id):
-	global flag
-	jsonList = json.dumps(auth_status)
-	jsondict = json.loads(jsonList)
-	status = jsondict["status"]
-	if status == True:
-		flag = True
 
 @app.route("/",methods=['POST'])
 def main_form():

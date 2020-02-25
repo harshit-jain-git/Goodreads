@@ -46,6 +46,7 @@ CREATE TABLE Ratings (
     book_id int REFERENCES Books(book_id),
     rating smallint CHECK (rating >= 1 AND rating <= 5),
     PRIMARY KEY (user_id, book_id)
+
 );
 
 CREATE TABLE BookTags (
@@ -68,12 +69,66 @@ CREATE TABLE ToRead (
 \COPY BookTags FROM './goodbooks-10k/book_tags.csv' DELIMITER ',' CSV HEADER;
 \COPY ToRead FROM './goodbooks-10k/to_read.csv' DELIMITER ',' CSV HEADER;
 
+CREATE MATERIALIZED VIEW Authors AS (select ath as author, sum(average_rating*ratings_count)/sum(ratings_count) as rating, count(book_id) as num_books, sum(ratings_count) as review_count from (select *, regexp_split_to_table(authors, ',') as ath from books) as t1 group by ath) order by review_count desc, rating desc;
 
--- DROP TABLE badges;
--- DROP TABLE comments;
--- DROP TABLE linktypes;
--- DROP TABLE postlinks;
--- DROP TABLE posts;
--- DROP TABLE posttypes;
--- DROP TABLE users;
--- DROP TABLE votes;
+CREATE OR REPLACE FUNCTION insert()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE Books
+    SET ratings_count = ratings_count + 1, 
+    ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 + 1 ELSE ratings_1 END,
+    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 + 1 ELSE ratings_2 END,
+    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 + 1 ELSE ratings_3 END,
+    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 + 1 ELSE ratings_4 END,
+    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 + 1 ELSE ratings_5 END,
+    average_rating = (average_rating*(ratings_count - 1) + NEW.rating)/ratings_count
+    WHERE book_id = NEW.book_id;
+
+    RETURN NEW;
+END; $$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER RatingInsert
+    AFTER INSERT ON Ratings
+    FOR EACH ROW
+    EXECUTE FUNCTION insert();
+
+CREATE OR REPLACE FUNCTION delete()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE Books
+    SET ratings_count = ratings_count - 1, 
+    ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
+    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
+    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
+    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
+    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
+    average_rating = (average_rating*(ratings_count + 1) - OLD.rating)/ratings_count
+    WHERE book_id = NEW.book_id;
+
+    RETURN NEW;
+END; $$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER RatingDelete
+    AFTER INSERT ON Ratings
+    FOR EACH ROW
+    EXECUTE FUNCTION delete();
+
+CREATE OR REPLACE FUNCTION update()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE Books
+    SET ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 + 1 WHEN OLD.rating = 1 THEN ratings_1 = ratings_1 - 1 ELSE ratings_1 END,
+    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 + 1 WHEN OLD.rating = 2 THEN ratings_2 = ratings_2 - 1 ELSE ratings_2 END,
+    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 + 1 WHEN OLD.rating = 3 THEN ratings_3 = ratings_3 - 1 ELSE ratings_3 END,
+    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 + 1 WHEN OLD.rating = 4 THEN ratings_4 = ratings_4 - 1 ELSE ratings_4 END,
+    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 + 1 WHEN OLD.rating = 5 THEN ratings_5 = ratings_5 - 1 ELSE ratings_5 END,
+    average_rating = (average_rating*ratings_count - OLD.rating + NEW.rating)/ratings_count
+    WHERE book_id = NEW.book_id;
+
+    RETURN NEW;
+END; $$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER RatingUpdate
+    AFTER UPDATE ON Ratings
+    FOR EACH ROW
+    EXECUTE FUNCTION update();

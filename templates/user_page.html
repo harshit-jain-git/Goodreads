@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-84158236-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-84158236-2');
+</script>
+
+	<title>Login Page</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/logo.jpeg"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg.jpg');">
+			<div class="wrap-login100">
+				<form method="post" action="" class="login100-form validate-form">
+
+					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
+						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="col-md-4">
+						<button class="login100-form-btn" id="login-button-1">
+							Search Book by Title
+						</button>
+					</div>
+
+				</form>
+
+				<form method="post" action="" class="login100-form validate-form">
+
+					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
+						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="col-md-4">
+						<button class="login100-form-btn" id="login-button-2">
+							Search Book by Author
+						</button>
+					</div>
+
+				</form>
+
+				<form method="post" action="" class="login100-form validate-form">
+
+					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
+						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="col-md-4">
+						<button class="login100-form-btn" id="login-button-3">
+							Search Book by year
+						</button>
+					</div>
+
+				</form>
+
+				<form method="post" action="" class="login100-form validate-form">
+
+					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
+						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="col-md-4">
+						<button class="login100-form-btn" id="login-button-3">
+							Search book by tag
+						</button>
+					</div>
+
+				</form>
+			</div>
+			
+		</div>
+	</div>
+	
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="vendor/socket.io.min.js"></script>
+
+	<script src="js/main.js"></script>
+
+	<script>
+		{% if error %}
+		   alert(' {{ error }}'); 
+			{% endif %}
+	</script>
+	  
+</body>
+</html>
