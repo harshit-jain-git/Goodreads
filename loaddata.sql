@@ -4,7 +4,7 @@ CREATE DATABASE group_10;
 
 CREATE TABLE Books (
     book_id int,
-    goodreads_book_id int NOT NULL,
+    goodreads_book_id int UNIQUE NOT NULL,
     best_book_id int NOT NULL,
     work_id int NOT NULL,
     books_count int NOT NULL CHECK (books_count >= 0),
@@ -43,14 +43,14 @@ CREATE TABLE Tags (
 
 CREATE TABLE Ratings (
     user_id int REFERENCES Users(user_id),
-    book_id int REFERENCES Books(book_id),
+    book_id int REFERENCES Books(book_id) ON DELETE CASCADE,
     rating smallint CHECK (rating >= 1 AND rating <= 5),
     PRIMARY KEY (user_id, book_id)
 
 );
 
 CREATE TABLE BookTags (
-    goodreads_book_id int,
+    goodreads_book_id int REFERENCES Books(goodreads_book_id) ON DELETE CASCADE,
     tag_id int REFERENCES Tags(tag_id),
     count int CHECK(count = -1 OR count > 0),
     PRIMARY KEY (goodreads_book_id, tag_id)
@@ -58,7 +58,7 @@ CREATE TABLE BookTags (
 
 CREATE TABLE ToRead (
     user_id int REFERENCES Users(user_id),
-    book_id int,
+    book_id int REFERENCES Books(book_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, book_id)
 );
 

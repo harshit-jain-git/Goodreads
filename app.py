@@ -13,7 +13,7 @@ app = Flask(__name__,
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
-conn = psycopg2.connect("dbname=goodbooks user=postgres host=localhost port=5433 password=postgres")
+conn = psycopg2.connect("dbname=group_10 user=group_10 host=10.17.50.134 port=5432 password=815-685-329")
 cur = conn.cursor()
 
 def validate(username, passkey):
