@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS goodbooks;
-CREATE DATABASE goodbooks;
-\c goodbooks;
+DROP DATABASE IF EXISTS group_10;
+CREATE DATABASE group_10;
+\c group_10;
 
 CREATE TABLE Books (
     book_id int,
@@ -68,6 +68,8 @@ CREATE TABLE ToRead (
 \COPY Tags FROM './goodbooks-10k/tags.csv' DELIMITER ',' CSV HEADER;
 \COPY BookTags FROM './goodbooks-10k/book_tags.csv' DELIMITER ',' CSV HEADER;
 \COPY ToRead FROM './goodbooks-10k/to_read.csv' DELIMITER ',' CSV HEADER;
+
+CREATE INDEX Books_title_index ON Books(title);
 
 CREATE MATERIALIZED VIEW Authors AS (select ath as author, sum(average_rating*ratings_count)/sum(ratings_count) as rating, count(book_id) as num_books, sum(ratings_count) as review_count from (select *, regexp_split_to_table(authors, ',') as ath from books) as t1 group by ath) order by review_count desc, rating desc;
 
