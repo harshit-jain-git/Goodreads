@@ -48,7 +48,6 @@ a {
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
-	margin: 0px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -61,7 +60,10 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #fff;
+  color: #000;
+  border-bottom-style: solid;
+  border-bottom-color: blue;
+  border-bottom-width: 1px;
 }
 
 /*---------------------------------------------*/
@@ -153,8 +155,29 @@ iframe {
 [ login ]*/
 
 .limiter {
-  width: 100%;
-  margin: 0 auto;
+  width: auto;
+  margin: 0px 5px;
+  padding: 5px;
+  border-bottom-color: black;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+}
+
+.details {
+  width: auto;
+  margin: 0px 5px;
+  padding: 5px;
+  border-bottom-color: black;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+}
+
+.search_box {
+  margin-top: 5px;
+  padding-top: 20px;
+  border-top-color: black;
+  border-top-width: 2px;
+  border-top-style: solid;
 }
 
 .container-login100 {

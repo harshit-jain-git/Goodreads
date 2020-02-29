@@ -38,71 +38,119 @@
 </head>
 <body>
 	
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg.jpg');">
-			<div class="wrap-login100">
-				<form method="post" action="" class="login100-form validate-form">
+	<div class="container-wrapper">
+		<div class="limiter">
+			<a href="#">Best rated books</a> &emsp;
+			<a href="#">Best rated authors</a> &emsp;
+			<a href="#">Most popular books</a> &emsp;
+			<a href="#">Most popular authors</a> &emsp;
+			<a href="#">Most active users</a> &emsp;
+			<a href="#">Most recent books</a>
 
-					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
-						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
-
-					<div class="col-md-4">
-						<button class="login100-form-btn" id="login-button-1">
-							Search Book by Title
-						</button>
-					</div>
-
-				</form>
-
-				<form method="post" action="" class="login100-form validate-form">
-
-					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
-						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
-
-					<div class="col-md-4">
-						<button class="login100-form-btn" id="login-button-2">
-							Search Book by Author
-						</button>
-					</div>
-
-				</form>
-
-				<form method="post" action="" class="login100-form validate-form">
-
-					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
-						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
-
-					<div class="col-md-4">
-						<button class="login100-form-btn" id="login-button-3">
-							Search Book by year
-						</button>
-					</div>
-
-				</form>
-
-				<form method="post" action="" class="login100-form validate-form">
-
-					<div class="col-md-8 wrap-input100 validate-input" data-validate = "Enter Valid Search Query">
-						<input class="input100" type="text" autocomplete="off" name="username" placeholder="Search Query">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
-
-					<div class="col-md-4">
-						<button class="login100-form-btn" id="login-button-3">
-							Search book by tag
-						</button>
-					</div>
-
-				</form>
-			</div>
-			
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			<a href="#">Change Password</a> &emsp;
+			<a href="#">Logout</a>
 		</div>
+
+		<div class="details">
+			<p> Login user id: {{user}} </p>
+			<a href="#"> To read </a> &emsp;
+			<a href="#"> Rated books </a> &emsp;
+			<div class="search_box">
+				<form class="needs-validation" novalidate>
+				  <div class="form-row">
+				    <div class="col-md-6 mb-4">
+				      <input type="text" class="form-control" id="validationCustom01" placeholder="Search book by title" value="">
+				    </div>
+				    <div class="col-md-4 mb-3">
+				      <button class="btn btn-primary" type="submit">Search</button>
+				    </div>
+				</div>
+				</form>
+
+				<form class="needs-validation" novalidate>
+				  <div class="form-row">
+				    <div class="col-md-6 mb-4">
+				      <input type="text" class="form-control" id="validationCustom02" placeholder="Search book by author" value="">
+				    </div>
+				    <div class="col-md-4 mb-3">
+				      <button class="btn btn-primary" type="submit">Search</button>
+				    </div>
+				</div>
+				</form>
+
+				<form class="needs-validation" novalidate>
+				  <div class="form-row">
+				    <div class="col-md-6 mb-4">
+				      <input type="text" class="form-control" id="validationCustom03" placeholder="Search book by year" value="">
+				    </div>
+				    <div class="col-md-4 mb-3">
+				      <button class="btn btn-primary" type="submit">Search</button>
+				    </div>
+				</div>
+				</form>
+
+				<form class="needs-validation" novalidate>
+				  <div class="form-row">
+				    <div class="col-md-6 mb-4">
+				      <input type="text" class="form-control" id="validationCustom04" placeholder="Search book by tag" value="">
+				    </div>
+				    <div class="col-md-4 mb-3">
+				      <button class="btn btn-primary" type="submit">Search</button>
+				    </div>
+				</div>
+				</form>
+
+				<form class="needs-validation" novalidate>
+				  <div class="form-row">
+				    <div class="col-md-6 mb-4">
+				      <input type="text" class="form-control" id="validationCustom05" placeholder="Search book by ISBN" value="">
+				    </div>
+				    <div class="col-md-4 mb-3">
+				      <button class="btn btn-primary" type="submit">Search</button>
+				    </div>
+				</div>
+				</form>
+
+				<form class="needs-validation" novalidate>
+				  <div class="form-row">
+				    <div class="col-md-6 mb-4">
+				      <input type="text" class="form-control" id="validationCustom06" placeholder="Advanced search query" value="">
+				    </div>
+				    <div class="col-md-4 mb-3">
+				      <button class="btn btn-primary" type="submit">Search</button>
+				    </div>
+				</div>
+				</form>
+
+				<!-- <script>
+				(function() {
+				  'use strict';
+				  window.addEventListener('load', function() {
+				    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+				    var forms = document.getElementsByClassName('needs-validation');
+				    // Loop over them and prevent submission
+				    var validation = Array.prototype.filter.call(forms, function(form) {
+				      form.addEventListener('submit', function(event) {
+				        if (form.checkValidity() === false) {
+				          event.preventDefault();
+				          event.stopPropagation();
+				        }
+				        form.classList.add('was-validated');
+				      }, false);
+				    });
+				  }, false);
+				})();
+				</script> -->
+			</div>
+
+		</div>
+
+		<div class="output">
+
+		</div>
+
 	</div>
 	
 	
@@ -123,7 +171,7 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/socket.io.min.js"></script>
 
-	<script src="js/main.js"></script>
+	<script src="js/user_page.js"></script>
 
 	<script>
 		{% if error %}

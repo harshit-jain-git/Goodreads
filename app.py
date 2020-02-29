@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, url_for, redirect
+from flask import *
 from flask_socketio import SocketIO
 import socket
 import json
@@ -29,7 +29,7 @@ def validate(username, passkey):
 
 @app.route("/user_page")
 def user_page():
-	return render_template('user_page.html')
+	return render_template('user_page.html', user=session['uid'])
 
 @app.route("/")
 def main():
@@ -42,12 +42,14 @@ def main_form():
 		password=request.form['password']
 		if (username == 'admin' and password == 'admin'):
 			socketio.emit('authorized_access')
+			session['uid'] = username
 			return redirect(url_for('user_page'))
 		(err,res) = validate(username,password)
 		if(err):
 			return render_template('main.html')
 		else:
 			socketio.emit('authorized_access')
+			session['uid'] = username
 			return redirect(url_for('user_page'))
 
 
