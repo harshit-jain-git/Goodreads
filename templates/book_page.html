@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-84158236-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-84158236-2');
+	</script>
+
+	<title>Login Page</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../images/logo.jpeg"/>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+	<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+	<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/user_page.css">
+	<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="container-wrapper">
+		<div class="limiter">
+			<span> Login user id: {{user}} </span>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+
+			<a href="#">Change Password</a> &emsp;
+			<a href="#">Logout</a>
+		</div>
+		<div class="book_details_wrapper col-md-12">
+			<div class="book_image">
+				<img id="url" src="" height="300px" width="300px">
+			</div>
+			<div class="book_details" id="book_details">
+				<p id="book_title">Title: </p>
+				<p id="book_author">Authors: </p>
+				<p id="book_year">Publication year: </p>
+				<p id="book_isbn">ISBN: </p>
+				<p id="book_lang">Language code: </p>
+				<p id="book_rating">Rating: </p>
+				<p id="book_rating_count">Number of ratings: </p>
+				<p id="book_ratings_1">#Rating 1: </p>
+				<p id="book_ratings_2">#Rating 2: </p>
+				<p id="book_ratings_3">#Rating 3: </p>
+				<p id="book_ratings_4">#Rating 4: </p>
+				<p id="book_ratings_5">#Rating 5: </p>
+				<p id="book_tags">Tags: </p><br>
+				<span>Your Rating: </span> &emsp;
+				<a href="#" id="rating_id_1" style="border: 1px black solid; border-radius: 2px; padding: 2px 5px;">1</a> &emsp;
+				<a href="#" id="rating_id_2" style="border: 1px black solid; border-radius: 2px; padding: 2px;">2</a> &emsp;
+				<a href="#" id="rating_id_3" style="border: 1px black solid; border-radius: 2px; padding: 2px;">3</a> &emsp;
+				<a href="#" id="rating_id_4" style="border: 1px black solid; border-radius: 2px; padding: 2px;">4</a> &emsp;
+				<a href="#" id="rating_id_5" style="border: 1px black solid; border-radius: 2px; padding: 2px;">5</a> &emsp;
+				<a href="#" id="unrate" style="border: 1px black solid; border-radius: 2px; padding: 2px;">Not rated</a>
+				<br><br>
+				<span>To read: </span> &emsp;
+				<a href="#" id="to_read_1" style="border: 1px black solid; border-radius: 2px; padding: 2px 5px;">Yes</a> &emsp;
+				<a href="#" id="to_read_0" style="border: 1px black solid; border-radius: 2px; padding: 2px 5px;">No</a> &emsp;
+			</div>
+		</div>
+
+	</div>
+	
+	
+	<!--===============================================================================================-->
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/daterangepicker/moment.min.js"></script>
+	<script src="../vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="../vendor/socket.io.min.js"></script>
+
+	<script src="../js/book_page.js"></script>
+
+	<script>
+		{% if error %}
+		alert(' {{ error }}'); 
+		{% endif %}
+	</script>
+
+</body>
+</html>

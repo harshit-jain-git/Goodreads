@@ -99,19 +99,19 @@ RETURNS TRIGGER AS $$
 BEGIN
     UPDATE Books
     SET ratings_count = ratings_count - 1, 
-    ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
-    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
-    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
-    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
-    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
+    ratings_1 = CASE WHEN OLD.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
+    ratings_2 = CASE WHEN OLD.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
+    ratings_3 = CASE WHEN OLD.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
+    ratings_4 = CASE WHEN OLD.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
+    ratings_5 = CASE WHEN OLD.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
     average_rating = (average_rating*(ratings_count + 1) - OLD.rating)/ratings_count
-    WHERE book_id = NEW.book_id;
+    WHERE book_id = OLD.book_id;
 
     RETURN NEW;
 END; $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER RatingDelete
-    AFTER INSERT ON Ratings
+    BEFORE DELETE ON Ratings
     FOR EACH ROW
     EXECUTE FUNCTION delete();
 
@@ -119,11 +119,11 @@ CREATE OR REPLACE FUNCTION update()
 RETURNS TRIGGER AS $$
 BEGIN
     UPDATE Books
-    SET ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 + 1 WHEN OLD.rating = 1 THEN ratings_1 = ratings_1 - 1 ELSE ratings_1 END,
-    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 + 1 WHEN OLD.rating = 2 THEN ratings_2 = ratings_2 - 1 ELSE ratings_2 END,
-    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 + 1 WHEN OLD.rating = 3 THEN ratings_3 = ratings_3 - 1 ELSE ratings_3 END,
-    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 + 1 WHEN OLD.rating = 4 THEN ratings_4 = ratings_4 - 1 ELSE ratings_4 END,
-    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 + 1 WHEN OLD.rating = 5 THEN ratings_5 = ratings_5 - 1 ELSE ratings_5 END,
+    SET ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 + 1 WHEN OLD.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
+    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 + 1 WHEN OLD.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
+    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 + 1 WHEN OLD.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
+    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 + 1 WHEN OLD.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
+    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 + 1 WHEN OLD.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
     average_rating = (average_rating*ratings_count - OLD.rating + NEW.rating)/ratings_count
     WHERE book_id = NEW.book_id;
 
