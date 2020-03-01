@@ -1,5 +1,6 @@
 (function() {
 	var socket = io.connect('http://' + document.domain + ':' + location.port);
+
 	$('.title_search a').on('click',function(){
         q = $('#query_1').val();
 
@@ -31,6 +32,18 @@
         socket.emit('isbn_search', q);
     });
 
+
+    $(document).on('click', '#logout', function(){
+        console.log("logout request");
+        socket.emit('logout_request');
+    });
+
+    $(document).on('click', '#change_password', function(){
+        bootbox.prompt("Enter your password!", function(password){
+            socket.emit('change_password_request', password);
+        });
+    });
+
     $(document).on('click', '.book_url', function(){
     	title = $(this).text();
     	console.log(title)
@@ -41,6 +54,17 @@
     	author = $(this).text();
     	console.log(author)
     	socket.emit('author_page_request', author);
+    });
+
+    socket.on('password_updated', function(){
+        bootbox.alert("Password changed successfully!");
+    });
+
+    socket.on('logged_out', function(){
+        bootbox.alert("Logged out successfully!");
+        setTimeout(function(){
+            window.location = 'http://' + document.domain + ':' + location.port + '/';
+        }, 5000);
     });
 
     socket.on('book_page_result', function(id){

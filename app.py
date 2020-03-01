@@ -3,6 +3,8 @@ from flask_socketio import SocketIO, send, emit
 import socket
 import json
 import time
+import random
+import string
 import psycopg2
 
 app = Flask(__name__,
@@ -66,6 +68,9 @@ except:
 	cur.close()
 
 cur = conn.cursor()
+cur.execute("select count(user_id) from users")
+signup_user_id = cur.fetchall()[0][0] + 1
+print(signup_user_id)
 
 def validate(username, passkey):
 	query = "select count(user_id) from users where user_id = {} and password = '{}'".format(username, passkey)
@@ -74,9 +79,14 @@ def validate(username, passkey):
 	if (rows[0][0] == 1):
 		print("LOGIN SUCCESSFULL!")
 		return (False, None)
-	else:
+	else:		
 		print("INVALID CREDENTIALS!")
 		return (True, None)
+
+def randomString(stringLength=10):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
 
 @socketio.on('update_to_read')
 def update_to_read (book_id, to_read):
@@ -88,6 +98,30 @@ def update_to_read (book_id, to_read):
 	conn.commit()
 
 	socketio.emit('post_to_read_update')
+
+@socketio.on('signup_request')
+def signup_request ():
+	global signup_user_id
+	password = randomString()
+	query = "insert into users values({}, '{}')".format(signup_user_id, password)
+	cur.execute(query)
+	conn.commit()
+	l = [signup_user_id, password]
+	socketio.emit('signed_up', l)
+	signup_user_id += 1
+
+@socketio.on('change_password_request')
+def change_password_request (password):
+	query = "update users set password = '{}' where user_id = {}".format(password, session['uid'])
+	cur.execute(query)
+	conn.commit()
+
+	socketio.emit('password_updated')
+
+@socketio.on('logout_request')
+def logout_request ():
+	session.pop('uid', None)
+	socketio.emit('logged_out')
 
 @socketio.on('update_rating')
 def update_rating (book_id, rate, flag):
@@ -132,7 +166,7 @@ def best_rated_books ():
 	socketio.emit('best_rated_books_result', rows)
 
 @socketio.on('best_rated_authors')
-def best_rated_books ():
+def best_rated_authors ():
 	query = "select author from authors order by rating desc limit 30"
 	cur.execute(query)
 	rows = cur.fetchall()

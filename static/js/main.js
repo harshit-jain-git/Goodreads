@@ -19,6 +19,18 @@
     var loginbutton = document.getElementById('login-button');
     var authorized = false;
     var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+    $(document).on('click', '#signup-button', function(){
+        console.log("signup request");
+        socket.emit('signup_request');
+    });
+
+    socket.on('signed_up', function(l){
+        console.log(l[0]);
+        console.log(l[1]);
+        bootbox.alert("Signed up successfully! <br> User ID: " + l[0] + "<br> Password: " + l[1]);
+    });
+
     socket.on('authorized_access', function() {
         console.log('access granted');
         authorized = true;

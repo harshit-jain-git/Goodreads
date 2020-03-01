@@ -73,6 +73,11 @@
         }
     });
 
+    $(document).on('click', '#logout', function(){
+        console.log("logout request");
+        socket.emit('logout_request');
+    });
+
     socket.emit('get_book_details', id);
 
     socket.on('post_rating_update', function(){
@@ -83,6 +88,13 @@
     socket.on('post_to_read_update', function(){
         // console.log("To read updated");
         location.reload(true);
+    });
+
+    socket.on('logged_out', function(){
+        bootbox.alert("Logged out successfully!");
+        setTimeout(function(){
+            window.location = 'http://' + document.domain + ':' + location.port + '/';
+        }, 5000);
     });
 
     socket.on('book_details', function(rows){

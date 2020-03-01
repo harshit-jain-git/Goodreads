@@ -7,6 +7,18 @@
 
     console.log(author_id)
 
+    $(document).on('click', '#logout', function(){
+        console.log("logout request");
+        socket.emit('logout_request');
+    });
+
+    socket.on('logged_out', function(){
+        bootbox.alert("Logged out successfully!");
+        setTimeout(function(){
+            window.location = 'http://' + document.domain + ':' + location.port + '/';
+        }, 5000);
+    });
+
     socket.emit('get_author_details', author_id);
 
     socket.on('author_details', function(rows){
