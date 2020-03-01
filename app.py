@@ -106,7 +106,9 @@ def signup_request ():
 	query = "insert into users values({}, '{}')".format(signup_user_id, password)
 	cur.execute(query)
 	conn.commit()
-	l = [signup_user_id, password]
+	l = []
+	l.append(signup_user_id)
+	l.append(password)
 	socketio.emit('signed_up', l)
 	signup_user_id += 1
 
@@ -329,6 +331,12 @@ def author_details(author_id):
 	rows.append(books)
 	socketio.emit('author_details', rows)
 
+@socketio.on('get_tag_names')
+def get_tag_names():
+	query = "select tag_name from tags, booktags where tags.tag_id = booktags.tag_id group by tags.tag_id, booktags.tag_id order by sum(booktags.count) desc limit 500"
+	cur.execute(query)
+	rows = cur.fetchall()
+	socketio.emit('tag_names', rows)
 
 @app.route("/author_page/<id>")
 def author_page(id):
@@ -342,6 +350,13 @@ def book_page(id):
 def default():
 	return render_template('book_page.html')
 
+@app.route("/admin_page")
+def admin_page():
+	if (session['uid'] == 'admin'):
+		return render_template('admin_page.html', user=session['uid'])
+	else:
+		abort(404)
+
 @app.route("/user_page")
 def user_page():
 	return render_template('user_page.html', user=session['uid'])
@@ -349,6 +364,11 @@ def user_page():
 @app.route("/")
 def main():
 	return render_template('main.html')
+
+@app.errorhandler(404)
+def page_not_found(error):
+	return render_template_string("INVALID URL REQUEST")
+
 
 @app.route("/",methods=['POST'])
 def main_form():
@@ -358,7 +378,7 @@ def main_form():
 		if (username == 'admin' and password == 'admin'):
 			socketio.emit('authorized_access')
 			session['uid'] = username
-			return redirect(url_for('user_page'))
+			return redirect(url_for('admin_page'))
 		(err,res) = validate(username,password)
 		if(err):
 			return render_template('main.html')
@@ -366,11 +386,6 @@ def main_form():
 			socketio.emit('authorized_access')
 			session['uid'] = username
 			return redirect(url_for('user_page'))
-
-
-@app.route('/<path:path>')
-def static_file(path):
-	return app.send_static_file(path)
 
 if __name__ == "__main__":
 	socketio.run(app)

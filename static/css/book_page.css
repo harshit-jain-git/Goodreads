@@ -34,6 +34,15 @@
   padding-bottom:7px;
 }
 
+.progress-bar-primary {
+  background-color: #e8eb34;
+}
+
+.admin_box {
+  margin-top: 5px;
+  padding-top: 20px;
+}
+
 .review-block{
   background-color:#FAFAFA;
   border:1px solid #EFEFEF;
