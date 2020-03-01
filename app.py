@@ -122,7 +122,6 @@ def change_password_request (password):
 
 @socketio.on('logout_request')
 def logout_request ():
-	session.pop('uid', None)
 	socketio.emit('logged_out')
 
 @socketio.on('update_rating')
@@ -337,6 +336,35 @@ def get_tag_names():
 	cur.execute(query)
 	rows = cur.fetchall()
 	socketio.emit('tag_names', rows)
+
+@socketio.on('add_book_request')
+def add_book_handler(q):
+	print(q)
+	flag = True
+	cur.execute("select max(book_id) from books")
+	book_id = cur.fetchall()[0][0] + 1   
+	if(q['goodreads_book_id'] == '' or q['isbn']== '' or q['isbn13']== '' or q['authors']== '' or q['original_publication_year']== '' or q['title']== '' or q['language']== '' or q['image_url']== ''):
+		flag = False
+		print("Not adding book")
+	if(flag):
+		query = "insert into books values({}, {}, {}, 0, 1, '{}', {}, '{}', {}, '{}', '{}', '{}', 3, 1, 0, 0, 0, 0, 1, 0, 0, '{}', '{}')".format(
+					book_id, int(q['goodreads_book_id']), int(q['goodreads_book_id']), q['isbn'], int(q['isbn13']), q['authors'], int(q['original_publication_year']), q['title'], q['title'], q['language'], q['image_url'], q['image_url'])
+		print(query)
+		cur.execute(query)
+		conn.commit()
+	socketio.emit('book_request_result', flag)
+
+@socketio.on('add_tag_request')
+def add_tag_handler(q):
+	cur.execute("select tag_id from tags where tag_name='{}'".format(q['tag_name']))
+	tag_id = cur.fetchall()[0][0]
+	cur.execute("select * from booktags where tag_id={} and goodreads_book_id={}".format(tag_id,int(q['goodreads_book_id'])))
+	if(cur.rowcount==0):
+		query = "insert into booktags values({},{},1)".format(int(q['goodreads_book_id']),tag_id)
+		cur.execute(query)
+		conn.commit()
+	print("executed")
+	socketio.emit('tag_added')
 
 @app.route("/author_page/<id>")
 def author_page(id):

@@ -74,16 +74,17 @@
 							<input type="text" class="form-control" id="original_publication_year" placeholder="Publication year" value="">
 						</div>
 						<div class="col-md-3 mb-2">
-							<input type="text" class="form-control" id="language code" placeholder="Language code" value="">
+							<input type="text" class="form-control" id="language" placeholder="Language code" value="">
 						</div>
 						<div class="col-md-3 mb-2">
 							<input type="text" class="form-control" id="image_url" placeholder="Image url" value="">
 						</div>
 						<div class="col-md-12 mb-8" style="text-align: center;">
-							<button class="btn btn-success" id="add_book_button" style="width: 100%"> Add book </button>
+							<a class="btn btn-success" id="add_book_button" style="width: 100%"> Add book </a>
 						</div>
 					</div>
 				</form>
+				<p id="add_book_result"></p>
 			</div>
 			<br><br><br><br><br>
 			<div class="admin_box" style="border-top: 2px black solid">
@@ -96,7 +97,7 @@
 							<input type="text" class="form-control" id="tag" placeholder="Tag" value="">
 						</div>
 						<div class="col-md-2 mb-2">
-							<button class="btn btn-success" id="add_tag_button" style="width: 100%"> Add tag </button>
+							<a class="btn btn-success" id="add_tag_button" style="width: 100%"> Add tag </a>
 						</div>
 					</div>
 				</form>
@@ -118,6 +119,7 @@
 <script src="../vendor/bootstrap/js/popper.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+
 <!--===============================================================================================-->
 <script src="../vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->

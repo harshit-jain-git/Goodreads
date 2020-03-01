@@ -1,5 +1,7 @@
 (function() {
 	var socket = io.connect('http://' + document.domain + ':' + location.port);
+    $.getScript("https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js");
+    
     var x = $(location).attr('href');
     x = x.split('/');
     var author_id = x[x.length - 1];
@@ -16,7 +18,7 @@
         bootbox.alert("Logged out successfully!");
         setTimeout(function(){
             window.location = 'http://' + document.domain + ':' + location.port + '/';
-        }, 5000);
+        }, 3000);
     });
 
     socket.emit('get_author_details', author_id);
