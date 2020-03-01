@@ -32,6 +32,12 @@
         socket.emit('isbn_search', q);
     });
 
+    $('.advanced_search a').on('click',function(){
+        q = $('#query_6').val();
+        q = q.split('|');
+
+        socket.emit('advanced_search', q);
+    });
 
     $(document).on('click', '#logout', function(){
         console.log("logout request");
@@ -123,6 +129,14 @@
     		html = html + '<a class="book_url" href="#">' + e[0] + '</a> &emsp;'
     	}
     	document.getElementById('output').innerHTML = html;
+    });
+
+    socket.on('advanced_search_result', function(rows){
+        html = "";
+        for (e of rows) {
+            html = html + '<a class="book_url" href="#">' + e[0] + '</a> &emsp;'
+        }
+        document.getElementById('output').innerHTML = html;
     });
 
     $(document).on('click', '#best_rated_books', function(){

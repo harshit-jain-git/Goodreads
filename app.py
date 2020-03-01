@@ -27,32 +27,32 @@ try:
 	cur.execute("""CREATE OR REPLACE FUNCTION delete()
 	RETURNS TRIGGER AS $$
 	BEGIN
-	    UPDATE Books
-	    SET ratings_count = ratings_count - 1, 
-	    ratings_1 = CASE WHEN OLD.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
-	    ratings_2 = CASE WHEN OLD.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
-	    ratings_3 = CASE WHEN OLD.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
-	    ratings_4 = CASE WHEN OLD.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
-	    ratings_5 = CASE WHEN OLD.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
-	    average_rating = (average_rating*(ratings_count + 1) - OLD.rating)/ratings_count
-	    WHERE book_id = OLD.book_id;
+		UPDATE Books
+		SET ratings_count = ratings_count - 1, 
+		ratings_1 = CASE WHEN OLD.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
+		ratings_2 = CASE WHEN OLD.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
+		ratings_3 = CASE WHEN OLD.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
+		ratings_4 = CASE WHEN OLD.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
+		ratings_5 = CASE WHEN OLD.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
+		average_rating = (average_rating*(ratings_count + 1) - OLD.rating)/ratings_count
+		WHERE book_id = OLD.book_id;
 
-	    RETURN NEW;
+		RETURN NEW;
 	END; $$ LANGUAGE 'plpgsql'; """)
 
 	cur.execute("""CREATE OR REPLACE FUNCTION update()
 	RETURNS TRIGGER AS $$
 	BEGIN
-	    UPDATE Books
-	    SET ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 + 1 WHEN OLD.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
-	    ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 + 1 WHEN OLD.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
-	    ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 + 1 WHEN OLD.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
-	    ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 + 1 WHEN OLD.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
-	    ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 + 1 WHEN OLD.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
-	    average_rating = (average_rating*ratings_count - OLD.rating + NEW.rating)/ratings_count
-	    WHERE book_id = NEW.book_id;
+		UPDATE Books
+		SET ratings_1 = CASE WHEN NEW.rating = 1 THEN ratings_1 + 1 WHEN OLD.rating = 1 THEN ratings_1 - 1 ELSE ratings_1 END,
+		ratings_2 = CASE WHEN NEW.rating = 2 THEN ratings_2 + 1 WHEN OLD.rating = 2 THEN ratings_2 - 1 ELSE ratings_2 END,
+		ratings_3 = CASE WHEN NEW.rating = 3 THEN ratings_3 + 1 WHEN OLD.rating = 3 THEN ratings_3 - 1 ELSE ratings_3 END,
+		ratings_4 = CASE WHEN NEW.rating = 4 THEN ratings_4 + 1 WHEN OLD.rating = 4 THEN ratings_4 - 1 ELSE ratings_4 END,
+		ratings_5 = CASE WHEN NEW.rating = 5 THEN ratings_5 + 1 WHEN OLD.rating = 5 THEN ratings_5 - 1 ELSE ratings_5 END,
+		average_rating = (average_rating*ratings_count - OLD.rating + NEW.rating)/ratings_count
+		WHERE book_id = NEW.book_id;
 
-	    RETURN NEW;
+		RETURN NEW;
 	END; $$ LANGUAGE 'plpgsql';""")
 
 	cur.execute("DROP MATERIALIZED VIEW Authors;")
@@ -84,9 +84,9 @@ def validate(username, passkey):
 		return (True, None)
 
 def randomString(stringLength=10):
-    """Generate a random string of fixed length """
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(stringLength))
+	"""Generate a random string of fixed length """
+	letters = string.ascii_lowercase
+	return ''.join(random.choice(letters) for i in range(stringLength))
 
 @socketio.on('update_to_read')
 def update_to_read (book_id, to_read):
@@ -243,6 +243,46 @@ def isbn_search (isbn13):
 	cur.execute(query)
 	rows = cur.fetchall()
 	socketio.emit('isbn_search_result', rows)
+
+@socketio.on('advanced_search')
+def advanced_search(q):
+	title = q[0];
+	author = q[1];
+	years = q[2].split(',')
+	year_1 = years[0];
+	year_2 = years[1];
+	rates = q[3].split(',')
+	rate_1 = rates[0]
+	rate_2 = rates[1]
+
+	print(q)
+	query = "select title from books where true"
+	if (len(title) != 0):
+		query += " and title like '%{}%'".format(title)
+
+	if (len(author) != 0):
+		query += " and authors like '%{}%'".format(author)
+
+	if (len(year_1) != 0):
+		year_1 = int(year_1)
+		query += " and original_publication_year > {} ".format(year_1)
+
+	if (len(year_2) != 0):
+		year_2 = int(year_2)
+		query += " and original_publication_year < {}".format(year_2)
+
+	if (len(rate_1) != 0):
+		rate_1 = float(rate_1)
+		query += "and average_rating > {}".format(rate_1)
+
+	if (len(rate_2) != 0):
+		rate_2 = float(rate_2)
+		query += "and average_rating < {}".format(rate_2)
+
+	print(query)
+	cur.execute(query)
+	rows = cur.fetchall()
+	socketio.emit('advanced_search_result', rows)
 
 @socketio.on('get_book_details')
 def book_details(id):
