@@ -71,7 +71,7 @@ CREATE TABLE ToRead (
 
 CREATE INDEX Books_title_index ON Books(title);
 
-CREATE MATERIALIZED VIEW Authors AS (select ath as author, sum(average_rating*ratings_count)/sum(ratings_count) as rating, count(book_id) as num_books, sum(ratings_count) as review_count from (select *, regexp_split_to_table(authors, ',') as ath from books) as t1 group by ath) order by review_count desc, rating desc;
+CREATE MATERIALIZED VIEW Authors AS (select ath as author, sum(average_rating*ratings_count)/sum(ratings_count) as rating, count(book_id) as num_books, sum(ratings_count) as review_count from (select *, regexp_split_to_table(authors, ', ') as ath from books) as t1 group by ath) order by review_count desc, rating desc;
 
 CREATE OR REPLACE FUNCTION insert()
 RETURNS TRIGGER AS $$

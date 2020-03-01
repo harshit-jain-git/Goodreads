@@ -1,3 +1,6 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,14 +62,85 @@
 				<p id="book_year">Publication year: </p>
 				<p id="book_isbn">ISBN: </p>
 				<p id="book_lang">Language code: </p>
-				<p id="book_rating">Rating: </p>
+				<!-- <p id="book_rating">Rating: </p> -->
 				<p id="book_rating_count">Number of ratings: </p>
 				<p id="book_ratings_1">#Rating 1: </p>
 				<p id="book_ratings_2">#Rating 2: </p>
 				<p id="book_ratings_3">#Rating 3: </p>
 				<p id="book_ratings_4">#Rating 4: </p>
 				<p id="book_ratings_5">#Rating 5: </p>
+
 				<p id="book_tags">Tags: </p><br>
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="pull-left">
+							<div class="pull-left" style="width:35px; line-height:1;">
+								<div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
+							</div>
+							<div class="pull-left" style="width:180px;">
+								<div class="progress" style="height:9px; margin:8px 0;">
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5">
+										<span class="sr-only">80% Complete (danger)</span>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right" style="margin-left:10px;">1</div>
+						</div>
+						<div class="pull-left">
+							<div class="pull-left" style="width:35px; line-height:1;">
+								<div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
+							</div>
+							<div class="pull-left" style="width:180px;">
+								<div class="progress" style="height:9px; margin:8px 0;">
+									<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+										<span class="sr-only">80% Complete (danger)</span>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right" style="margin-left:10px;">1</div>
+						</div>
+						<div class="pull-left">
+							<div class="pull-left" style="width:35px; line-height:1;">
+								<div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
+							</div>
+							<div class="pull-left" style="width:180px;">
+								<div class="progress" style="height:9px; margin:8px 0;">
+									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+										<span class="sr-only">80% Complete (danger)</span>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right" style="margin-left:10px;">0</div>
+						</div>
+						<div class="pull-left">
+							<div class="pull-left" style="width:35px; line-height:1;">
+								<div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
+							</div>
+							<div class="pull-left" style="width:180px;">
+								<div class="progress" style="height:9px; margin:8px 0;">
+									<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+										<span class="sr-only">80% Complete (danger)</span>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right" style="margin-left:10px;">0</div>
+						</div>
+						<div class="pull-left">
+							<div class="pull-left" style="width:35px; line-height:1;">
+								<div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
+							</div>
+							<div class="pull-left" style="width:180px;">
+								<div class="progress" style="height:9px; margin:8px 0;">
+									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+										<span class="sr-only">80% Complete (danger)</span>
+									</div>
+								</div>
+							</div>
+							<div class="pull-right" style="margin-left:10px;">0</div>
+						</div>
+					</div>
+				</div>
+
 				<span>Your Rating: </span> &emsp;
 				<a href="#" id="rating_id_1" style="border: 1px black solid; border-radius: 2px; padding: 2px 5px;">1</a> &emsp;
 				<a href="#" id="rating_id_2" style="border: 1px black solid; border-radius: 2px; padding: 2px;">2</a> &emsp;
@@ -100,7 +174,7 @@
 	<script src="../vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="../vendor/socket.io.min.js"></script>
-
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<script src="../js/book_page.js"></script>
 
 	<script>

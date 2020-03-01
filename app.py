@@ -53,6 +53,13 @@ try:
 	    RETURN NEW;
 	END; $$ LANGUAGE 'plpgsql';""")
 
+	cur.execute("DROP MATERIALIZED VIEW Authors;")
+	cur.execute("""CREATE MATERIALIZED VIEW Authors AS (select ath as author, sum(average_rating*ratings_count)/sum(ratings_count) as rating, 
+					count(book_id) as num_books, sum(ratings_count) as review_count 
+					from (select *, regexp_split_to_table(authors, ', ') as ath from books) as t1 group by ath) 
+					order by review_count desc, rating desc;""")
+
+
 	conn.commit();
 except:
 	conn.rollback()
@@ -98,13 +105,20 @@ def update_rating (book_id, rate, flag):
 
 @socketio.on('book_page_request')
 def book_page_request_handler(title):
-	query = "select book_id from books where title = '{}'".format(title)
+	title = title.replace("'", "''")
+	query = "select book_id from books where title='{}'".format(title)
 	cur.execute(query)
 	rows = cur.fetchall()
-	socketio.emit('book_id_result', rows[0][0])
+	socketio.emit('book_page_result', rows[0][0])
+
+@socketio.on('author_page_request')
+def author_page_request_handler(author):
+	author = author.replace("'", "''")
+	socketio.emit('author_page_result', author)
 
 @socketio.on('title_search')
 def handler (title):
+	title = title.replace("'", "''")
 	query = "select title from books where title = '{}'".format(title)
 	cur.execute(query)
 	rows = cur.fetchall()
@@ -168,6 +182,8 @@ def rated_books ():
 
 @socketio.on('author_search')
 def author_search (author):
+	author = author.replace("'", "''")
+
 	query = "select title from books, (select book_id, regexp_split_to_table(authors, ', ') as ath from books) as t1 where books.book_id = t1.book_id and t1.ath = '{}'".format(author)
 	cur.execute(query)
 	rows = cur.fetchall()
@@ -222,6 +238,27 @@ def book_details(id):
 
 	socketio.emit('book_details', rows)
 
+@socketio.on('get_author_details')
+def author_details(author_id):
+	author_id = author_id.replace("%20", ' ');
+	query = "select * from authors where author = '{}'".format(author_id)
+	cur.execute(query)
+	rows = cur.fetchall()
+	print(query)
+	rows = list(rows[0])
+	rows[1] = float(rows[1])
+
+	query = "select title, image_url, count(user_id) from toread, books, (select book_id, regexp_split_to_table(authors, ', ') as ath from books) as t1 where toread.book_id = books.book_id and books.book_id = t1.book_id and t1.ath = '{}' group by books.book_id, toread.book_id order by average_rating desc".format(author_id)
+	cur.execute(query)
+	books = cur.fetchall()
+
+	rows.append(books)
+	socketio.emit('author_details', rows)
+
+
+@app.route("/author_page/<id>")
+def author_page(id):
+	return render_template('author_page.html', user=session['uid'], author_id=id)
 
 @app.route("/book_page/<id>")
 def book_page(id):

@@ -37,8 +37,18 @@
     	socket.emit('book_page_request', title);
     });
 
-    socket.on('book_id_result', function(id){
+    $(document).on('click', '.author_url', function(){
+    	author = $(this).text();
+    	console.log(author)
+    	socket.emit('author_page_request', author);
+    });
+
+    socket.on('book_page_result', function(id){
     	window.location = 'http://' + document.domain + ':' + location.port + '/book_page/' + id;
+    })
+
+    socket.on('author_page_result', function(id){
+        window.location = 'http://' + document.domain + ':' + location.port + '/author_page/' + id;
     })
 
     socket.on('title_search_result', function(rows){

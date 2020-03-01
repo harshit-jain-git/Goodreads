@@ -76,12 +76,12 @@
     socket.emit('get_book_details', id);
 
     socket.on('post_rating_update', function(){
-        console.log("Rating updated");
+        // console.log("Rating updated");
         location.reload(true);
     });
 
     socket.on('post_to_read_update', function(){
-        console.log("To read updated");
+        // console.log("To read updated");
         location.reload(true);
     });
 
@@ -136,8 +136,22 @@
         text += rows[11];
         $('#book_ratings_5').text(text);
 
+        var val = (Math.round(rows[11]/rows[6]*100)).toString() + '%';
+        $('[aria-valuenow = 5]').css("width", val);
+        
+        var val = (Math.round(rows[10]/rows[6]*100)).toString() + '%';
+        $('[aria-valuenow = 4]').css("width", val);
+
+        var val = (Math.round(rows[9]/rows[6]*100)).toString() + '%';
+        $('[aria-valuenow = 3]').css("width", val);
+
+        var val = (Math.round(rows[8]/rows[6]*100)).toString() + '%';
+        $('[aria-valuenow = 2]').css("width", val);
+
+        var val = (Math.round(rows[7]/rows[6]*100)).toString() + '%';
+        $('[aria-valuenow = 1]').css("width", val);
+
         tags = rows[14];
-        console.log(tags);
         var text = $('#book_tags').text();
         for (x of tags){
             text += x + ' | '; 
@@ -155,7 +169,6 @@
         }
 
         to_read = rows[16];
-        console.log(to_read);
         var aid = "#to_read_" + rows[16];
         $(aid).css("background-color","yellow");
 

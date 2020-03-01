@@ -2,182 +2,88 @@
 <html lang="en">
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-84158236-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-84158236-2');
-</script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-84158236-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-84158236-2');
+	</script>
 
-	<title>User Page</title>
+	<title>Author Page</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/logo.jpeg"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/user_page.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../images/logo.jpeg"/>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+	<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+	<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/user_page.css">
+	<!--===============================================================================================-->
 </head>
 <body>
 	
 	<div class="container-wrapper">
-		<div class="limiter">
-			<a href="#" id="best_rated_books">Best rated books</a> &emsp;
-			<a href="#" id="best_rated_authors">Best rated authors</a> &emsp;
-			<a href="#" id="most_read_books">Most popular books</a> &emsp;
-			<a href="#" id="most_popular_authors">Most popular authors</a> &emsp;
-			<a href="#" id="most_active_users">Most active users</a> &emsp;
-			<a href="#" id="most_recent_books">Most recent books</a>
-
-			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 
-			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 
-			<a href="#">Change Password</a> &emsp;
-			<a href="#">Logout</a>
-		</div>
-
 		<div class="details">
-			<p> Login user id: {{user}} </p>
-			<a href="#" id="to_read"> To read </a> &emsp;
-			<a href="#" id="rated_books"> Rated books </a> &emsp;
-			<div class="search_box">
-				<form class="title_search">
-				  <div class="form-row">
-				    <div class="col-md-6 mb-4">
-				      <input type="text" class="form-control" id="query_1" placeholder="Search book by title" value="">
-				    </div>
-				    <div class="col-md-4 mb-3">
-				      <a class="btn btn-primary">Search</a>
-				    </div>
-				</div>
-				</form>
+			<p id="author_name"> Author name:  </p>
+			<p id="rating"> Rating:  </p>
+			<p id="books_written"> Books written:  </p>
+			<p id="review_count"> Review count:  </p>
 
-				<form class="author_search">
-				  <div class="form-row">
-				    <div class="col-md-6 mb-4">
-				      <input type="text" class="form-control" id="query_2" placeholder="Search book by author" value="">
-				    </div>
-				    <div class="col-md-4 mb-3">
-				      <a class="btn btn-primary">Search</a>
-				    </div>
-				</div>
-				</form>
+		</div>
+		<div class="container">
 
-				<form class="year_search">
-				  <div class="form-row">
-				    <div class="col-md-6 mb-4">
-				      <input type="text" class="form-control" id="query_3" placeholder="Search book by year" value="">
-				    </div>
-				    <div class="col-md-4 mb-3">
-				      <a class="btn btn-primary">Search</a>
-				    </div>
-				</div>
-				</form>
+			<h2 class="font-weight-light text-center mt-4 mb-0">Books written</h2>
 
-				<form class="tag_search">
-				  <div class="form-row">
-				    <div class="col-md-6 mb-4">
-				      <input type="text" class="form-control" id="query_4" placeholder="Search book by tag" value="">
-				    </div>
-				    <div class="col-md-4 mb-3">
-				      <a class="btn btn-primary">Search</a>
-				    </div>
-				</div>
-				</form>
+			<hr class="mt-2 mb-5">
 
-				<form class="isbn_search">
-				  <div class="form-row">
-				    <div class="col-md-6 mb-4">
-				      <input type="text" class="form-control" id="query_5" placeholder="Search book by ISBN" value="">
-				    </div>
-				    <div class="col-md-4 mb-3">
-				      <a class="btn btn-primary">Search</a>
-				    </div>
-				</div>
-				</form>
-
-				<form class="advanced_search">
-				  <div class="form-row">
-				    <div class="col-md-6 mb-4">
-				      <input type="text" class="form-control" id="query_6" placeholder="Advanced search query" value="">
-				    </div>
-				    <div class="col-md-4 mb-3">
-				      <a class="btn btn-primary">Search</a>
-				    </div>
-				</div>
-				</form>
-
-				<!-- <script>
-				(function() {
-				  'use strict';
-				  window.addEventListener('load', function() {
-				    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-				    var forms = document.getElementsByClassName('needs-validation');
-				    // Loop over them and prevent submission
-				    var validation = Array.prototype.filter.call(forms, function(form) {
-				      form.addEventListener('submit', function(event) {
-				        if (form.checkValidity() === false) {
-				          event.preventDefault();
-				          event.stopPropagation();
-				        }
-				        form.classList.add('was-validated');
-				      }, false);
-				    });
-				  }, false);
-				})();
-				</script> -->
+			<div class="row text-center text-lg-left" id="books">
 			</div>
 
 		</div>
-
-		<div class="output" id="output">
-
-		</div>
-
+		<!-- /.container -->
 	</div>
 	
 	
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/socket.io.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/daterangepicker/moment.min.js"></script>
+	<script src="../vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="../vendor/socket.io.min.js"></script>
 
-	<script src="js/user_page.js"></script>
+	<script src="../js/author_page.js"></script>
 
 	<script>
 		{% if error %}
-		   alert(' {{ error }}'); 
-			{% endif %}
+		alert(' {{ error }}'); 
+		{% endif %}
 	</script>
-	  
+
 </body>
 </html>
